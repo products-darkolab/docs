@@ -28,27 +28,18 @@
     {
       "name": "API Reference",
       "url": "api"
-    },
-    {
-      "name": "Developer Guide",
-      "url": "developer"
     }
   ],
   "anchors": [
     {
-      "name": "GitHub",
-      "icon": "github",
-      "url": "https://github.com/products-darkolab/safua-platform"
-    },
-    {
-      "name": "Jira",
-      "icon": "trello",
-      "url": "https://darkolab.atlassian.net/jira/software/projects/DLAB"
-    },
-    {
       "name": "safua.ai",
       "icon": "globe",
       "url": "https://safua.ai"
+    },
+    {
+      "name": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/products-darkolab"
     }
   ],
   "navigation": [
@@ -58,16 +49,6 @@
         "introduction",
         "quickstart",
         "changelog"
-      ]
-    },
-    {
-      "group": "Platform",
-      "pages": [
-        "architecture/overview",
-        "architecture/tech-stack",
-        "architecture/database",
-        "architecture/deployment",
-        "architecture/agent-system"
       ]
     },
     {
@@ -106,26 +87,15 @@
         "api/gamification",
         "api/subscriptions"
       ]
-    },
-    {
-      "group": "Developer",
-      "pages": [
-        "developer/setup",
-        "developer/migrations",
-        "developer/agents",
-        "developer/contributing",
-        "developer/roadmap"
-      ]
     }
   ],
   "footerSocials": {
     "twitter": "https://twitter.com/safuaai",
-    "github": "https://github.com/products-darkolab/safua-platform",
     "linkedin": "https://linkedin.com/company/darkolab"
   },
   "feedback": {
     "thumbsRating": true,
-    "suggestEdit": true
+    "suggestEdit": false
   },
   "search": {
     "prompt": "Search Safua docs..."
