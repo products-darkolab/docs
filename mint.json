@@ -97,7 +97,6 @@
         "api/tracks",
         "api/courses",
         "api/learning-graph",
-        "api/labs",
         "api/cohorts",
         "api/gamification",
         "api/subscriptions"
