@@ -1,50 +1,98 @@
 ---
 title: "Gamification"
-description: "XP, streaks, leagues, wagers, and spaced repetition."
+description: "XP history, streaks, badges, and leaderboard data."
 ---
 
-## GET /gamification/my-stats
+## Get XP summary
 
-Returns the user's full gamification profile.
+```bash
+GET /api/v1/gamification/xp-summary
+```
 
 ```json
 {
-  "xp_total": 3840,
-  "current_streak_days": 14,
-  "longest_streak_days": 21,
-  "current_league_tier": "gold",
-  "weekly_xp": 420,
-  "league_rank": 4,
-  "focus_freezes_available": 2,
-  "active_wager": {
-    "bet_amount": 50,
-    "target_streak": 7,
-    "current_streak": 5,
-    "days_remaining": 2
+  "data": {
+    "total_xp": 4820,
+    "current_streak": 14,
+    "longest_streak": 21,
+    "badges_earned": 7,
+    "global_rank": 142
   }
 }
 ```
 
----
-
-## POST /gamification/wager
-
-Place a streak wager. Bet XP on hitting a streak target.
+## Get XP history
 
 ```bash
-curl -X POST https://api.safua.ai/v1/gamification/wager \
-  -H "Authorization: Bearer TOKEN" \
-  -d '{"bet_amount": 50, "target_streak": 7}'
+GET /api/v1/gamification/xp-history?limit=20
 ```
 
+## Get badges
+
+```bash
+GET /api/v1/gamification/badges
+```
+
+## Get leaderboard
+
+```bash
+GET /api/v1/gamification/leaderboard?scope=track&limit=20
+```
+
+`scope` options: `cohort`, `track`, `global`
+
+## Activate Focus Freeze
+
+```bash
+POST /api/v1/gamification/focus-freeze/activate
+```
+
+Protects your streak for one missed day.
+
+---
+title: "Subscriptions"
+description: "Check plan status and available features."
 ---
 
-## POST /gamification/use-focus-freeze
+## Get current subscription
 
-Use a Focus Freeze to protect your streak for one day.
+```bash
+GET /api/v1/subscriptions/current
+```
 
----
+```json
+{
+  "data": {
+    "plan": "pro",
+    "status": "active",
+    "current_period_end": "2026-04-07T00:00:00Z",
+    "cancel_at_period_end": false
+  }
+}
+```
 
-## GET /leagues/my-league
+## Available plans
 
-Returns the user's current league, weekly leaderboard, and promotion/demotion zone.
+```bash
+GET /api/v1/subscriptions/plans
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "free",
+      "name": "Free",
+      "price_monthly": 0,
+      "features": ["Foundation track", "AI tutor (limited)", "Basic leaderboard"]
+    },
+    {
+      "id": "pro",
+      "name": "Pro",
+      "price_monthly": 29,
+      "price_annual": 199,
+      "features": ["All 4 career tracks", "Unlimited labs", "Full AI tutor", "Cohort matching", "Certificates"]
+    }
+  ]
+}
+```

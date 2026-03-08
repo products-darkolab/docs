@@ -1,0 +1,55 @@
+---
+title: "Living Learning Graph"
+description: "Your personal skill graph — how mastery is tracked, how it decays, and how it drives what you learn next."
+---
+
+## What it is
+
+The Living Learning Graph is a directed graph of 210+ skills where edges represent prerequisites. Every learner has their own mastery score for each skill — a number from 0 to 1 that reflects how well you actually know it.
+
+Unlike a course completion checkbox, mastery scores respond to how you perform, decay if you don't revisit, and drive personalised recommendations for what to learn next.
+
+## Understanding your mastery score
+
+| Score | What it means |
+|---|---|
+| 0.0 – 0.3 | Not yet learned, or largely forgotten |
+| 0.3 – 0.6 | Developing — you know the basics, needs reinforcement |
+| 0.6 – 0.85 | Solid understanding |
+| 0.85 – 1.0 | Expert — ready to explain this to someone else |
+
+### How scores update
+
+When you complete a lab or review, your mastery updates using a weighted blend:
+
+```
+new_mastery = (old_mastery × 0.7) + (performance_score × 0.3)
+```
+
+This rewards consistency over cramming. A single perfect lab won't shoot you to 1.0 — mastery builds through repeated, spaced practice.
+
+### Daily decay
+
+Skills decay at 2% per day without review. This mirrors the forgetting curve and keeps your graph honest — so your skill scores always reflect what you can do today, not what you once learned.
+
+## Zone of Proximal Development (ZPD)
+
+The system surfaces the top 5 skills where you're in your ZPD — the zone where you know enough to learn, but haven't mastered it yet.
+
+A skill enters your ZPD when:
+- Your mastery is between **0.4 and 0.75**
+- All its prerequisites have mastery ≥ 0.6
+
+This prevents the graph from recommending skills you're not ready for, and avoids wasting your time on skills you already know well.
+
+## The skill graph visualisation
+
+On your `/learning-graph` page you'll find an interactive force-directed graph:
+
+- **Node size** — reflects your mastery score (bigger = stronger mastery)
+- **Node colour** — reflects your track
+- **Edges** — show prerequisite relationships
+- **Hover** — shows skill name, mastery score, and last reviewed date
+- **Click** — opens the relevant module
+
+Use it to spot skills that have decayed (small nodes), identify gaps in your prerequisite chain, and understand how your knowledge connects.

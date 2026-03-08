@@ -1,28 +1,44 @@
 ---
-title: "ML Engineer Track"
-description: "PyTorch, distributed training, model serving, and MLOps. ~22 weeks."
+title: "ML Engineer"
+description: "PyTorch, distributed training, MLOps, and model serving at scale — ~22 weeks after Foundation."
 ---
 
-## Overview
+## Who this track is for
 
-The ML Engineer track trains you to build, train, and deploy machine learning systems at scale. You'll work in PyTorch, build data pipelines, serve models under production load, and set up monitoring to catch issues before they affect users.
+The ML Engineer track is for engineers who want to own the full lifecycle of ML systems — from training runs to production serving. You'll go deep on PyTorch, learn how to scale training across GPUs, and build the infrastructure that keeps models healthy in production.
 
-**Prerequisites:** Foundation track completed
-**Duration:** ~22 weeks | **Labs:** 12 | **Capstone:** Production ML system design
+**Best fit if you:**
+- Come from a software or data engineering background
+- Want to work on ML infrastructure at companies with serious model training
+- Are interested in the systems and engineering side of ML
 
 ## Curriculum
 
-### Level 1 — Deep Learning with PyTorch (~5 weeks)
-PyTorch tensors and autograd, building neural networks, training loops (early stopping, mixed precision, gradient clipping), CNNs, transfer learning.
+### Level 1 — Deep Learning Foundations *(free)*
+| Module | Key Topics |
+|---|---|
+| Neural Networks & PyTorch | Tensors, autograd, training loops, GPU basics |
+| CNN & RNN Architectures | Conv layers, sequence models, practical applications |
 
-### Level 2 — Distributed Training (~4 weeks)
-DataLoaders and data augmentation, multi-GPU training with `torch.distributed`, gradient accumulation, DeepSpeed basics, training efficiency profiling.
+### Level 2 — Training at Scale
+| Module | Key Topics |
+|---|---|
+| Advanced PyTorch | Custom datasets, DataLoaders, mixed precision, profiling |
+| Distributed Training | DDP, model parallelism, gradient accumulation |
 
-### Level 3 — Data Pipelines for ML (~4 weeks)
-Feature stores, data versioning with DVC, building reproducible pipelines, handling data drift at ingestion, Great Expectations for data quality.
+### Level 3 — MLOps
+| Module | Key Topics |
+|---|---|
+| Experiment Tracking | MLflow, Weights & Biases, hyperparameter tuning |
+| Model Registry & CI/CD | Versioning, automated retraining, model promotion |
+| Data Pipelines for ML | Feature stores, data versioning, lineage |
 
-### Level 4 — MLOps (~6 weeks)
-Experiment tracking with MLflow, CI/CD for models with GitHub Actions, model serving with BentoML (target p99 < 100ms), A/B model deployment, drift detection with Evidently, alerting.
+### Level 4 — Model Serving
+| Module | Key Topics |
+|---|---|
+| Inference Optimisation | Quantisation, pruning, ONNX, TensorRT |
+| Serving Systems | BentoML, Triton, latency budgets, autoscaling |
+| Production Monitoring | Shadow deployment, A/B testing models, drift |
 
-### Level 5 — Capstone (~3 weeks)
-Design and implement a production-ready ML system: training pipeline + serving layer + monitoring dashboard. Peer reviewed. **+500 XP**.
+### Level 5 — Capstone
+Design and build a complete ML system: data → training → serving → monitoring. Reviewed by your cohort on system design and production readiness.

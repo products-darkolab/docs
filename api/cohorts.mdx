@@ -1,131 +1,73 @@
 ---
 title: "Cohorts"
-description: "Cohort membership, challenges, peer reviews, and leaderboard."
+description: "Access cohort data, challenges, peer reviews, and leaderboard."
 ---
 
-## GET /cohorts/my-cohort
-
-Returns the learner's active cohort, all members, and activity stats.
+## Get your cohort
 
 ```bash
-curl https://api.safua.ai/v1/cohorts/my-cohort \
-  -H "Authorization: Bearer TOKEN"
+GET /api/v1/cohorts/my-cohort
 ```
 
-**Response (not yet matched):**
+## Get cohort leaderboard
+
+```bash
+GET /api/v1/cohorts/my-cohort/leaderboard
+```
+
+## Get active challenges
+
+```bash
+GET /api/v1/cohorts/my-cohort/challenges
+```
+
+## Submit a challenge
+
+```bash
+POST /api/v1/cohorts/challenges/{id}/submit
+```
+
 ```json
 {
-  "cohort": null,
-  "message": "You haven't been matched to a cohort yet. Check back soon!"
+  "code": "...",
+  "notes": "Optimised the retrieval step using MMR reranking"
 }
 ```
 
-**Response (matched):**
+## Get peer reviews
+
+```bash
+GET /api/v1/cohorts/my-cohort/peer-reviews
+```
+
+## Complete a peer review
+
+```bash
+POST /api/v1/cohorts/peer-reviews/{id}/complete
+```
+
 ```json
 {
-  "cohort": {
-    "id": "uuid",
-    "name": "AI Engineer Cohort — Week 10 2026",
-    "track": "ai_engineer",
-    "health_score": 72.5,
-    "created_at": "2026-03-02T00:00:00Z"
-  },
-  "members": [...],
-  "member_count": 6
+  "feedback": "Good use of context managers. Consider handling the case where the API returns an empty list.",
+  "score": 84
 }
 ```
 
----
+## Get cohort health score
 
-## GET /cohorts/my-cohort/leaderboard
+```bash
+GET /api/v1/cohorts/my-cohort/health
+```
 
-Weekly XP ranking within the learner's cohort.
-
----
-
-## GET /cohorts/my-cohort/challenges
-
-Active weekly and monthly challenges for the learner's cohort.
-
-**Response:**
 ```json
-[
-  {
-    "id": "uuid",
-    "title": "Build a Mini RAG Pipeline",
-    "description": "...",
-    "challenge_type": "weekly",
-    "skill_slugs": ["rag-architecture", "embeddings-fundamentals"],
-    "xp_reward": 150,
-    "ends_at": "2026-03-14T00:00:00Z",
-    "submitted": false,
-    "days_remaining": 5
+{
+  "data": {
+    "health_score": 78.5,
+    "standup_rate": 0.85,
+    "review_completion_rate": 0.90,
+    "challenge_rate": 0.60,
+    "active_member_rate": 1.0,
+    "week_of": "2026-03-03"
   }
-]
-```
-
----
-
-## POST /cohorts/challenges/{challenge_id}/submit
-
-Submit a solution to a challenge.
-
-```bash
-curl -X POST https://api.safua.ai/v1/cohorts/challenges/UUID/submit \
-  -H "Authorization: Bearer TOKEN" \
-  -d '{"code": "def rag_pipeline():\n    ...", "notes": "Used pgvector for storage"}'
-```
-
-**Response:**
-```json
-{
-  "message": "Submitted! +150 XP awarded.",
-  "xp_awarded": 150
 }
-```
-
----
-
-## GET /cohorts/my-cohort/peer-reviews
-
-Pending and completed peer review assignments for the learner.
-
----
-
-## POST /cohorts/peer-reviews/{assignment_id}/complete
-
-Submit peer review feedback. Requires at least 20 characters of feedback and a score 0–100.
-
-```bash
-curl -X POST https://api.safua.ai/v1/cohorts/peer-reviews/UUID/complete \
-  -H "Authorization: Bearer TOKEN" \
-  -d '{
-    "feedback": "Great use of list comprehensions. Consider extracting the embedding logic into a separate function for reusability.",
-    "score": 82
-  }'
-```
-
-**Response:**
-```json
-{
-  "message": "Peer review submitted! +50 XP earned.",
-  "xp_awarded": 50,
-  "score_given": 82
-}
-```
-
----
-
-## Admin Endpoints
-
-### GET /cohorts/admin/all
-All cohorts ranked by health score. Flags cohorts with health < 40 as `needs_attention`. **Admin only.**
-
-### POST /cohorts/run-matching
-Triggers cohort matching in the background. Optionally scope to a specific track.
-
-```bash
-curl -X POST https://api.safua.ai/v1/cohorts/run-matching \
-  -H "Authorization: Bearer ADMIN_TOKEN" \
-  -d '{"track": "ai_engineer"}'
 ```

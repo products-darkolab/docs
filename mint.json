@@ -9,6 +9,9 @@
     "primary": "#D4A853",
     "light": "#F59E0B",
     "dark": "#1A3A5C",
+    "background": {
+      "dark": "#0B1929"
+    },
     "anchors": {
       "from": "#D4A853",
       "to": "#2E86C1"
@@ -21,13 +24,17 @@
     }
   ],
   "topbarCtaButton": {
-    "name": "Start Learning",
+    "name": "Start Learning Free",
     "url": "https://safua.ai/register"
   },
   "tabs": [
     {
       "name": "API Reference",
       "url": "api"
+    },
+    {
+      "name": "Changelog",
+      "url": "changelog"
     }
   ],
   "anchors": [
@@ -37,18 +44,38 @@
       "url": "https://safua.ai"
     },
     {
-      "name": "GitHub",
-      "icon": "github",
-      "url": "https://github.com/products-darkolab"
+      "name": "Community",
+      "icon": "discord",
+      "url": "https://safua.ai/community"
+    },
+    {
+      "name": "Status",
+      "icon": "signal",
+      "url": "https://status.safua.ai"
     }
   ],
   "navigation": [
     {
+      "group": "",
+      "pages": ["introduction"]
+    },
+    {
       "group": "Get Started",
       "pages": [
-        "introduction",
-        "quickstart",
-        "changelog"
+        "get-started/quickstart",
+        "get-started/how-it-works",
+        "get-started/choose-your-track",
+        "get-started/faq"
+      ]
+    },
+    {
+      "group": "The Platform",
+      "pages": [
+        "platform/learning-graph",
+        "platform/ai-tutor",
+        "platform/labs",
+        "platform/cohorts",
+        "platform/gamification"
       ]
     },
     {
@@ -63,16 +90,6 @@
       ]
     },
     {
-      "group": "Learner Guide",
-      "pages": [
-        "learner/getting-started",
-        "learner/learning-graph",
-        "learner/cohorts",
-        "learner/gamification",
-        "learner/ai-tutor"
-      ]
-    },
-    {
       "group": "API Reference",
       "pages": [
         "api/overview",
@@ -80,12 +97,16 @@
         "api/tracks",
         "api/courses",
         "api/learning-graph",
-        "api/agent",
-        "api/code-review",
+        "api/labs",
         "api/cohorts",
-        "api/industry-pulse",
         "api/gamification",
         "api/subscriptions"
+      ]
+    },
+    {
+      "group": "Changelog",
+      "pages": [
+        "changelog/2026"
       ]
     }
   ],
@@ -95,9 +116,14 @@
   },
   "feedback": {
     "thumbsRating": true,
-    "suggestEdit": false
+    "suggestEdit": false,
+    "raiseIssue": false
   },
   "search": {
     "prompt": "Search Safua docs..."
+  },
+  "modeToggle": {
+    "default": "dark",
+    "isHidden": false
   }
 }

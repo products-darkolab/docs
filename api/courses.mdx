@@ -1,21 +1,93 @@
 ---
 title: "Courses"
-description: "Course catalog and enrollment."
+description: "Access curriculum content — roadmaps, levels, modules, lessons, and labs."
 ---
 
-## GET /courses
+## Roadmaps
 
-Returns all courses available to the authenticated user based on their track and subscription.
+```bash
+GET /api/v1/roadmaps
+GET /api/v1/roadmaps/{id}
+```
 
-## GET /courses/public/stats
+## Levels
 
-Public endpoint — no auth required. Returns platform-wide stats for the landing page.
+```bash
+GET /api/v1/levels?roadmap_id={id}
+GET /api/v1/levels/{id}
+```
+
+## Modules
+
+```bash
+GET /api/v1/modules?level_id={id}
+GET /api/v1/modules/{id}
+```
+
+## Lessons
+
+```bash
+GET /api/v1/lessons?module_id={id}
+GET /api/v1/lessons/{id}
+```
+
+**Lesson object:**
 
 ```json
 {
-  "total_learners": 1247,
-  "total_lessons": 271,
-  "total_labs": 64,
-  "skills_tracked": 210
+  "id": 42,
+  "title": "Building a RAG Pipeline",
+  "slug": "building-a-rag-pipeline",
+  "lesson_type": "reading_and_lab",
+  "difficulty": "intermediate",
+  "estimated_minutes": 45,
+  "content": "...",
+  "is_published": true,
+  "skill_slugs": ["rag", "vector-search", "embeddings"]
 }
+```
+
+## Labs
+
+```bash
+GET /api/v1/labs/{id}
+POST /api/v1/labs/{id}/submit
+```
+
+**Submit a lab:**
+
+```bash
+curl -X POST https://safua.ai/api/v1/labs/12/submit \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"code": "def build_rag_pipeline():\n    ..."}'
+```
+
+**Lab submission response:**
+
+```json
+{
+  "data": {
+    "submission_id": "sub_abc123",
+    "score": 82,
+    "correctness": 90,
+    "style": 78,
+    "efficiency": 74,
+    "inline_comments": [
+      {
+        "line": 14,
+        "type": "hint",
+        "comment": "What happens if the retrieved context exceeds your context window?"
+      }
+    ],
+    "xp_awarded": 100
+  }
+}
+```
+
+## Progress
+
+```bash
+GET /api/v1/progress/dashboard
+POST /api/v1/progress/lessons/{id}/complete
 ```

@@ -1,70 +1,57 @@
 ---
 title: "API Overview"
-description: "The Safua REST API — 28+ endpoints across all platform features."
+description: "Integrate Safua into your tools with the REST API."
 ---
 
 ## Base URL
 
 ```
-https://api.safua.ai/v1
+https://safua.ai/api/v1
 ```
 
-## Authentication
+All endpoints require authentication. See [Authentication](/api/authentication) for details.
 
-All endpoints (except `/auth/register`, `/auth/login`, and `/courses/public/stats`) require a Bearer token.
+## Response format
 
-```bash
-Authorization: Bearer <your_jwt_token>
-```
-
-Tokens expire after 7 days. Refresh by calling `/auth/login` again.
-
-## Response Format
-
-All responses are JSON. Errors follow this shape:
+All responses return JSON. Successful responses include a `data` field. Errors include a `detail` field.
 
 ```json
+// Success
 {
-  "detail": "Human-readable error message"
+  "data": { ... }
+}
+
+// Error
+{
+  "detail": "Not authenticated"
 }
 ```
 
-## Rate Limiting
+## Rate limits
 
-- Standard endpoints: 100 requests/minute per user
-- AI endpoints (`/lesson-tutor/chat`, `/code-review/submit`): 20 requests/minute per user
+| Plan | Requests per minute |
+|---|---|
+| Free | 30 |
+| Pro | 120 |
 
-## Routers
+Rate limit headers are included on every response:
 
-| Router | Prefix | Description |
-|---|---|---|
-| auth | `/auth` | Register, login, verify email, password reset |
-| users | `/users` | Profile, preferences |
-| roadmaps | `/roadmaps` | Career track roadmaps |
-| levels | `/levels` | Levels within a roadmap |
-| modules | `/modules` | Modules within a level |
-| lessons | `/lessons` | Individual lessons |
-| labs | `/labs` | Lab exercises |
-| enrollments | `/enrollments` | User enrollment in roadmaps |
-| courses | `/courses` | Course catalog |
-| progress | `/progress` | Lesson and lab completion |
-| dashboard | `/dashboard` | Dashboard data aggregation |
-| subscriptions | `/subscriptions` | Stripe subscription management |
-| certificates | `/certificates` | Completion certificates |
-| cohorts | `/cohorts` | Cohort matching, challenges, peer reviews |
-| mentor | `/mentor` | Mentor sessions |
-| lesson_tutor | `/lesson-tutor` | AI tutor chat |
-| lab_sessions | `/lab-sessions` | Lab session state |
-| content_studio | `/content-studio` | AI content generation (admin) |
-| course_builder | `/course-builder` | Course creation wizard (admin) |
-| projects | `/projects` | Project submissions |
-| assessments | `/assessments` | Skill assessments |
-| adaptive | `/adaptive` | Adaptive learning recommendations |
-| discussions | `/discussions` | Lesson discussions |
-| leaderboard | `/leaderboard` | Platform-wide XP leaderboard |
-| gamification | `/gamification` | XP, streaks, leagues, wagers |
-| learning_graph | `/learning-graph` | Skill graph, mastery, ZPD |
-| agent | `/agent` | Orchestrator agent endpoint |
-| code_review | `/code-review` | Lab code review |
-| tracks | `/tracks` | Career track selection |
-| industry_pulse | `/industry-pulse` | Skill freshness scores |
+```
+X-RateLimit-Limit: 120
+X-RateLimit-Remaining: 118
+X-RateLimit-Reset: 1735689600
+```
+
+## Pagination
+
+List endpoints support cursor-based pagination:
+
+```
+GET /api/v1/courses?limit=20&cursor=eyJpZCI6MTAwfQ==
+```
+
+Response includes a `next_cursor` field when more results exist.
+
+## Versioning
+
+The current API version is `v1`. Breaking changes will be released as `v2` with a deprecation notice and 90-day migration window.

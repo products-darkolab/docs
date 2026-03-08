@@ -1,68 +1,65 @@
 ---
 title: "Tracks"
-description: "Career track selection and progress."
+description: "Retrieve career track details and curriculum structure."
 ---
 
-## GET /tracks/available
-
-List all career tracks with the learner's enrollment status.
+## List all tracks
 
 ```bash
-curl https://api.safua.ai/v1/tracks/available \
-  -H "Authorization: Bearer TOKEN"
+GET /api/v1/tracks
 ```
 
-**Response:**
-```json
-[
-  {
-    "id": "uuid",
-    "slug": "ai-engineer",
-    "title": "AI Engineer",
-    "description": "...",
-    "track_key": "ai_engineer",
-    "estimated_weeks": 22,
-    "enrollment_status": "locked",
-    "foundation_required": true
-  }
-]
-```
-
----
-
-## POST /tracks/select
-
-Select a career track. Auto-enrolls the user in Foundation and locks the career track until Foundation is complete.
-
-```bash
-curl -X POST https://api.safua.ai/v1/tracks/select \
-  -H "Authorization: Bearer TOKEN" \
-  -d '{"track": "ai_engineer"}'
-```
-
----
-
-## GET /tracks/my-track
-
-Returns the user's selected track and Foundation progress.
-
-```bash
-curl https://api.safua.ai/v1/tracks/my-track \
-  -H "Authorization: Bearer TOKEN"
-```
-
-**Response:**
 ```json
 {
-  "selected_track": "ai_engineer",
-  "foundation_complete": false,
-  "foundation_progress": 0.33,
-  "career_track_status": "locked"
+  "data": [
+    {
+      "id": 1,
+      "slug": "foundation",
+      "title": "Foundation",
+      "is_foundation": true,
+      "estimated_weeks": 7,
+      "level_count": 1,
+      "module_count": 6
+    },
+    {
+      "id": 2,
+      "slug": "ai-engineer",
+      "title": "AI Engineer",
+      "is_foundation": false,
+      "estimated_weeks": 22,
+      "level_count": 5,
+      "module_count": 17
+    }
+  ]
 }
 ```
 
----
+## Get a specific track
 
-## POST /tracks/foundation-complete
+```bash
+GET /api/v1/tracks/{slug}
+```
 
-Called internally when Foundation is completed. Unlocks the career track. Can also be called manually by admins for testing.
+```bash
+GET /api/v1/tracks/ai-engineer
+```
+
+## Get track progress for the authenticated user
+
+```bash
+GET /api/v1/tracks/{slug}/progress
+```
+
+```json
+{
+  "data": {
+    "track_slug": "ai-engineer",
+    "is_unlocked": true,
+    "levels_completed": 2,
+    "modules_completed": 8,
+    "lessons_completed": 34,
+    "labs_completed": 8,
+    "overall_percentage": 47.2
+  }
+}
+```

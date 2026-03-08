@@ -1,89 +1,53 @@
 ---
-title: "AI Engineer Track"
-description: "Build production LLM applications: RAG pipelines, agents, prompt engineering, LLMOps. ~22 weeks."
+title: "AI Engineer"
+description: "Build LLM-powered products, RAG pipelines, and production AI agents — ~22 weeks after Foundation."
 ---
 
-## Overview
+## Who this track is for
 
-The AI Engineer track trains you to build end-to-end AI products. You'll go from understanding how LLMs work, to building retrieval-augmented generation systems, to deploying autonomous agents, to monitoring and operating them in production.
+The AI Engineer track is built for developers who want to ship AI products. You'll learn how to work with large language models, build retrieval-augmented generation systems, design multi-agent architectures, and deploy AI systems that actually work in production.
 
-**Prerequisites:** Foundation track completed
-**Duration:** ~22 weeks
-**Labs:** 17 hands-on projects
-**Capstone:** Build a complete AI-powered product
+**Best fit if you:**
+- Come from a software engineering background
+- Want to work at AI-native startups or build your own AI product
+- Are interested in the systems side of AI, not just research
 
 ## Curriculum
 
-### Level 1 — LLM Foundations (~4 weeks)
-
-| Module | Skills |
+### Level 1 — LLM Foundations *(free)*
+| Module | Key Topics |
 |---|---|
-| LLM Architecture & APIs | Transformers, tokenisation, context windows, `llm-api-integration` |
-| Prompt Engineering | System prompts, few-shot, chain-of-thought, structured outputs |
-| Embeddings & Similarity | Vector representations, cosine similarity, semantic search |
+| Working with LLMs | APIs, tokens, context windows, system prompts, few-shot prompting |
+| Prompt Engineering | Chain-of-thought, structured output, evaluation, red-teaming |
 
-### Level 2 — Retrieval-Augmented Generation (~5 weeks)
-
-| Module | Skills |
+### Level 2 — Building with LLMs
+| Module | Key Topics |
 |---|---|
-| RAG Fundamentals | Chunking strategies, embedding models, retrieval quality |
-| Vector Databases | pgvector, Chroma, Pinecone — indexing and querying |
-| Advanced RAG | HyDE, re-ranking, hybrid search, evaluation with RAGAS |
+| RAG Fundamentals | Chunking, embeddings, vector search, pgvector, retrieval quality |
+| LangChain & Pipelines | Chains, memory, document loaders, evaluation |
+| Structured Output & Function Calling | JSON mode, tool use, schema validation |
 
-### Level 3 — AI Agents (~5 weeks)
-
-| Module | Skills |
+### Level 3 — Production AI Systems
+| Module | Key Topics |
 |---|---|
-| Agent Fundamentals | ReAct pattern, tool use, planning |
-| Multi-Agent Systems | Agent orchestration, memory, handoffs |
-| Agentic RAG | Agents that query and reason over knowledge bases |
+| AI Agents | ReAct loop, tool use, agent memory, multi-step reasoning |
+| Multi-Agent Systems | Orchestration, specialised agents, handoff protocols |
+| LLM Evaluation | Benchmarking, LLM-as-judge, regression testing |
 
-### Level 4 — LLMOps (~5 weeks)
-
-| Module | Skills |
+### Level 4 — Advanced AI Engineering
+| Module | Key Topics |
 |---|---|
-| LLM Evaluation | Benchmarking, RAGAS, human eval, automated testing |
-| Observability | LangSmith, Helicone — tracing, cost tracking, debugging |
-| Deployment & Scaling | API design, caching, rate limiting, load testing |
+| Fine-tuning & Alignment | LoRA, RLHF basics, dataset curation, evaluation |
+| AI Infrastructure | Cost management, caching, streaming, observability |
+| Production Patterns | Rate limiting, fallbacks, human-in-the-loop, guardrails |
+| Multimodal Systems | Vision, audio, document understanding |
 
-### Level 5 — Capstone (~3 weeks)
+### Level 5 — Capstone
+Build a complete, production-ready AI product — from architecture design through deployment. Peer-reviewed by your cohort.
 
-| Module | Skills |
-|---|---|
-| AI Product Capstone | End-to-end AI product: FastAPI + frontend + RAG/agent feature |
+## What you'll be able to build
 
-## Sample Labs
-
-- Build a RAG pipeline over your own PDF using pgvector
-- Implement a ReAct agent that can use web search and run Python
-- Evaluate three RAG configurations using RAGAS and pick the best
-- Set up LangSmith tracing for a production LLM app
-- Build and deploy a Claude-powered chatbot with memory
-
-## Weekly Challenge: Build a Mini RAG Pipeline
-
-```python
-# Week 1 challenge brief
-"""
-Build a RAG pipeline that:
-1. Ingests a PDF document
-2. Chunks and embeds it using a sentence transformer
-3. Stores embeddings in pgvector
-4. Answers questions using Claude with retrieved context
-
-Scored on:
-- Retrieval precision@3
-- Answer faithfulness (RAGAS)
-- Code quality (peer review)
-"""
-```
-
-## Monthly Competition: End-to-End AI Product
-
-Build a complete AI-powered product in one month:
-- FastAPI backend with at least one LLM-powered endpoint
-- Basic frontend (React or Streamlit)
-- RAG or agent feature
-- Deployed and accessible via URL
-
-Judged by your cohort peers on: functionality, code quality, and creativity. **+500 XP for the winner.**
+- **RAG systems** — document Q&A, semantic search, knowledge bases with real retrieval metrics
+- **AI agents** — autonomous systems that use tools, maintain memory, and complete multi-step tasks
+- **LLM pipelines** — evaluation frameworks, structured output, production-grade APIs
+- **Complete AI products** — end-to-end systems with proper error handling, observability, and cost controls

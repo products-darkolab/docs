@@ -1,28 +1,44 @@
 ---
-title: "Data Engineer Track"
-description: "Data warehousing, dbt, Spark, Kafka, and lakehouse architecture. ~20 weeks."
+title: "Data Engineer"
+description: "dbt, Spark, Kafka, and lakehouse architecture — ~20 weeks after Foundation."
 ---
 
-## Overview
+## Who this track is for
 
-The Data Engineer track trains you to build the infrastructure that powers every data-driven product. You'll move from data modelling and warehousing, through transformations with dbt, to streaming pipelines and lakehouse architectures.
+The Data Engineer track is for engineers who want to build the infrastructure that powers data teams. You'll learn the modern data stack end to end — from ingestion and transformation to streaming and governance.
 
-**Prerequisites:** Foundation track completed
-**Duration:** ~20 weeks | **Labs:** 15 | **Capstone:** Full data platform build
+**Best fit if you:**
+- Come from a software engineering or analytics background
+- Want to build scalable pipelines, warehouses, and real-time systems
+- Are interested in the infrastructure that makes ML and analytics possible
 
 ## Curriculum
 
-### Level 1 — Data Warehousing (~4 weeks)
-Dimensional modelling (Kimball), star schemas, slowly changing dimensions, Snowflake/BigQuery/Redshift fundamentals, query optimisation, partitioning.
+### Level 1 — Modern Data Stack Foundations *(free)*
+| Module | Key Topics |
+|---|---|
+| Data Warehousing | Dimensional modelling, star schema, Snowflake/BigQuery |
+| dbt Fundamentals | Models, tests, documentation, lineage |
 
-### Level 2 — dbt & SQL Transformations (~4 weeks)
-dbt project structure, staging/intermediate/mart layers, tests and documentation, incremental models, dbt Cloud, Jinja templating.
+### Level 2 — Pipeline Engineering
+| Module | Key Topics |
+|---|---|
+| Orchestration | Airflow DAGs, task dependencies, backfill, SLAs |
+| Ingestion Patterns | CDC, batch vs streaming, Airbyte, Fivetran patterns |
+| Advanced dbt | Incremental models, snapshots, macros, packages |
 
-### Level 3 — Distributed Processing with Spark (~5 weeks)
-PySpark fundamentals, DataFrames API, optimisation (partitioning, caching, broadcast joins), fixing data skew, Spark Structured Streaming.
+### Level 3 — Distributed Computing
+| Module | Key Topics |
+|---|---|
+| Spark Fundamentals | RDDs, DataFrames, partitioning, optimisation |
+| Spark in Production | Cluster management, cost optimisation, debugging |
 
-### Level 4 — Streaming & Event-Driven Pipelines (~4 weeks)
-Kafka fundamentals, producers and consumers, exactly-once semantics, Kafka Streams, Flink basics, real-time aggregations.
+### Level 4 — Streaming & Lakehouses
+| Module | Key Topics |
+|---|---|
+| Kafka & Streaming | Producers, consumers, Kafka Streams, exactly-once |
+| Lakehouse Architecture | Delta Lake, Iceberg, data contracts, governance |
+| Data Quality | Great Expectations, anomaly detection, alerting |
 
-### Level 5 — Capstone (~3 weeks)
-Build a complete mini data platform: ingest → dbt transform → Airflow orchestration → data quality checks → monitoring dashboard. Peer reviewed. **+500 XP**.
+### Level 5 — Capstone
+Design and build a complete data platform: ingestion, transformation (dbt), orchestration (Airflow), and a downstream analytics or ML use case. Reviewed by your cohort on architecture and data quality.

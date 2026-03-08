@@ -1,62 +1,70 @@
 ---
 title: "Subscriptions"
-description: "Stripe subscription management — plans, portal, and webhooks."
+description: "Check plan status and available features."
 ---
 
-## Plans
-
-| Plan | Price | Features |
-|---|---|---|
-| Free | $0 | Foundation track, limited labs |
-| Pro | $29/month | All 4 career tracks, unlimited labs, AI tutor, cohort access |
-| Annual | $199/year | Everything in Pro, ~43% saving vs monthly |
-
----
-
-## POST /subscriptions/create-checkout
-
-Creates a Stripe Checkout session. Redirect the user to the returned URL.
+## Get current subscription
 
 ```bash
-curl -X POST https://api.safua.ai/v1/subscriptions/create-checkout \
-  -H "Authorization: Bearer TOKEN" \
-  -d '{"plan": "pro_monthly"}'
+GET /api/v1/subscriptions/current
 ```
-
-**Response:**
-```json
-{
-  "checkout_url": "https://checkout.stripe.com/pay/cs_live_..."
-}
-```
-
----
-
-## POST /subscriptions/customer-portal
-
-Creates a Stripe Customer Portal session for managing billing, updating payment method, or cancelling.
-
----
-
-## GET /subscriptions/status
-
-Returns the user's current subscription status.
 
 ```json
 {
-  "plan": "pro",
-  "status": "active",
-  "current_period_end": "2026-04-07T00:00:00Z",
-  "cancel_at_period_end": false
+  "data": {
+    "plan": "pro",
+    "status": "active",
+    "current_period_end": "2026-04-07T00:00:00Z",
+    "cancel_at_period_end": false
+  }
 }
 ```
 
----
+## Available plans
 
-## POST /subscriptions/webhook
+```bash
+GET /api/v1/subscriptions/plans
+```
 
-Stripe webhook endpoint. Handles `checkout.session.completed`, `customer.subscription.updated`, and `customer.subscription.deleted` events.
+```json
+{
+  "data": [
+    {
+      "id": "free",
+      "name": "Free",
+      "price_monthly": 0,
+      "features": [
+        "Foundation track (6 modules)",
+        "AI tutor (limited sessions)",
+        "Basic leaderboard"
+      ]
+    },
+    {
+      "id": "pro_monthly",
+      "name": "Pro Monthly",
+      "price_monthly": 29,
+      "features": [
+        "All 4 career tracks",
+        "Unlimited labs and AI tutor",
+        "Cohort matching",
+        "Peer code reviews",
+        "Certificates",
+        "Full leaderboard and gamification"
+      ]
+    },
+    {
+      "id": "pro_annual",
+      "name": "Pro Annual",
+      "price_annual": 199,
+      "features": [
+        "Everything in Pro Monthly",
+        "43% saving vs monthly"
+      ]
+    }
+  ]
+}
+```
 
-<Warning>
-This endpoint requires the `Stripe-Signature` header. Never call it directly — it's only for Stripe.
-</Warning>
+## Upgrade
+
+Upgrades are handled via [safua.ai/pricing](https://safua.ai/pricing). The API does not expose a direct upgrade endpoint — use the platform billing portal.

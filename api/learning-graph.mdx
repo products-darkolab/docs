@@ -1,48 +1,64 @@
 ---
 title: "Learning Graph"
-description: "Skill mastery, ZPD recommendations, and the skill graph."
+description: "Access skill mastery data and ZPD recommendations from the Living Learning Graph."
 ---
 
-## GET /learning-graph/my-graph
-
-Returns the user's full skill graph with mastery scores.
+## Get your skill graph
 
 ```bash
-curl https://api.safua.ai/v1/learning-graph/my-graph \
-  -H "Authorization: Bearer TOKEN"
+GET /api/v1/learning-graph/my-graph
 ```
 
-**Response:**
+Returns your mastery scores for all skills in your track.
+
 ```json
 {
-  "skills": [
-    {
-      "slug": "python-functions",
-      "name": "Python Functions",
-      "mastery_score": 0.82,
-      "last_reviewed_at": "2026-03-05T14:22:00Z",
-      "prerequisites": []
-    }
-  ],
-  "zpd_recommendations": [
-    {
-      "slug": "python-oop",
-      "name": "Python OOP",
-      "mastery_score": 0.45,
-      "why": "Prerequisites met. Ready to deepen understanding."
-    }
-  ]
+  "data": {
+    "skills": [
+      {
+        "slug": "rag",
+        "name": "Retrieval-Augmented Generation",
+        "mastery": 0.74,
+        "last_reviewed": "2026-03-01T14:22:00Z",
+        "is_decaying": false
+      }
+    ],
+    "zpd_recommendations": [
+      "vector-search",
+      "pgvector",
+      "embedding-models"
+    ]
+  }
 }
 ```
 
----
+## Get ZPD recommendations
 
-## POST /learning-graph/update-mastery
+```bash
+GET /api/v1/learning-graph/zpd
+```
 
-Update mastery for a skill after a lab or review. Called internally — not typically needed by API consumers.
+Returns the top 5 skills currently in your Zone of Proximal Development.
 
----
+## Get a specific skill
 
-## GET /learning-graph/skills
+```bash
+GET /api/v1/learning-graph/skills/{slug}
+```
 
-All 210 skills in the platform with metadata (name, slug, track, difficulty, prerequisites).
+## Skill freshness (Industry Pulse)
+
+```bash
+GET /api/v1/learning-graph/skills/{slug}/freshness
+```
+
+```json
+{
+  "data": {
+    "slug": "rag",
+    "freshness_score": 87.4,
+    "trend": "rising",
+    "last_updated": "2026-03-07T03:00:00Z"
+  }
+}
+```

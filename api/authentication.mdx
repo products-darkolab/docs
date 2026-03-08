@@ -1,90 +1,58 @@
 ---
 title: "Authentication"
-description: "Register, login, and manage user sessions."
+description: "How to authenticate with the Safua API using JWT tokens."
 ---
 
-## POST /auth/register
+## Getting a token
 
-Create a new user account.
-
-```bash
-curl -X POST https://api.safua.ai/v1/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{
-    "email": "user@example.com",
-    "password": "securepassword",
-    "full_name": "Jane Smith"
-  }'
-```
-
-**Response:**
-```json
-{
-  "message": "Registration successful. Please check your email to verify your account.",
-  "user_id": "uuid"
-}
-```
-
----
-
-## POST /auth/login
-
-Authenticate and receive a JWT token.
+Authenticate by posting your credentials to the `/auth/login` endpoint:
 
 ```bash
-curl -X POST https://api.safua.ai/v1/auth/login \
+curl -X POST https://safua.ai/api/v1/auth/login \
   -H "Content-Type: application/json" \
-  -d '{
-    "email": "user@example.com",
-    "password": "securepassword"
-  }'
+  -d '{"email": "you@example.com", "password": "yourpassword"}'
 ```
 
-**Response:**
+Response:
+
 ```json
 {
-  "access_token": "eyJ...",
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "token_type": "bearer",
-  "user": {
-    "id": "uuid",
-    "email": "user@example.com",
-    "full_name": "Jane Smith",
-    "role": "student",
-    "selected_track": null,
-    "xp_total": 0
-  }
+  "expires_in": 3600
 }
 ```
 
----
+## Using your token
 
-## POST /auth/verify-email
-
-Verify email address using the token sent on registration.
+Include the token in the `Authorization` header on every request:
 
 ```bash
-curl -X POST https://api.safua.ai/v1/auth/verify-email \
-  -d '{"token": "verification_token_from_email"}'
+curl https://safua.ai/api/v1/users/me \
+  -H "Authorization: Bearer YOUR_TOKEN"
 ```
 
----
+## Token expiry and refresh
 
-## POST /auth/forgot-password
-
-Send a password reset email.
+Access tokens expire after **1 hour**. Refresh using:
 
 ```bash
-curl -X POST https://api.safua.ai/v1/auth/forgot-password \
-  -d '{"email": "user@example.com"}'
+curl -X POST https://safua.ai/api/v1/auth/refresh \
+  -H "Authorization: Bearer YOUR_EXPIRED_TOKEN"
 ```
 
----
-
-## POST /auth/reset-password
-
-Reset password using the token from the reset email.
+## Register a new account
 
 ```bash
-curl -X POST https://api.safua.ai/v1/auth/reset-password \
-  -d '{"token": "reset_token", "new_password": "newpassword"}'
+curl -X POST https://safua.ai/api/v1/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "you@example.com",
+    "password": "securepassword",
+    "full_name": "Your Name"
+  }'
 ```
+
+<Warning>
+  Never expose your token in client-side code or commit it to version control.
+</Warning>
