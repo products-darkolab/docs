@@ -1,0 +1,90 @@
+---
+title: "Authentication"
+description: "Register, login, and manage user sessions."
+---
+
+## POST /auth/register
+
+Create a new user account.
+
+```bash
+curl -X POST https://api.safua.ai/v1/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "user@example.com",
+    "password": "securepassword",
+    "full_name": "Jane Smith"
+  }'
+```
+
+**Response:**
+```json
+{
+  "message": "Registration successful. Please check your email to verify your account.",
+  "user_id": "uuid"
+}
+```
+
+---
+
+## POST /auth/login
+
+Authenticate and receive a JWT token.
+
+```bash
+curl -X POST https://api.safua.ai/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "user@example.com",
+    "password": "securepassword"
+  }'
+```
+
+**Response:**
+```json
+{
+  "access_token": "eyJ...",
+  "token_type": "bearer",
+  "user": {
+    "id": "uuid",
+    "email": "user@example.com",
+    "full_name": "Jane Smith",
+    "role": "student",
+    "selected_track": null,
+    "xp_total": 0
+  }
+}
+```
+
+---
+
+## POST /auth/verify-email
+
+Verify email address using the token sent on registration.
+
+```bash
+curl -X POST https://api.safua.ai/v1/auth/verify-email \
+  -d '{"token": "verification_token_from_email"}'
+```
+
+---
+
+## POST /auth/forgot-password
+
+Send a password reset email.
+
+```bash
+curl -X POST https://api.safua.ai/v1/auth/forgot-password \
+  -d '{"email": "user@example.com"}'
+```
+
+---
+
+## POST /auth/reset-password
+
+Reset password using the token from the reset email.
+
+```bash
+curl -X POST https://api.safua.ai/v1/auth/reset-password \
+  -d '{"token": "reset_token", "new_password": "newpassword"}'
+```

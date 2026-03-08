@@ -1,0 +1,50 @@
+---
+title: "Gamification"
+description: "XP, streaks, leagues, wagers, and spaced repetition."
+---
+
+## GET /gamification/my-stats
+
+Returns the user's full gamification profile.
+
+```json
+{
+  "xp_total": 3840,
+  "current_streak_days": 14,
+  "longest_streak_days": 21,
+  "current_league_tier": "gold",
+  "weekly_xp": 420,
+  "league_rank": 4,
+  "focus_freezes_available": 2,
+  "active_wager": {
+    "bet_amount": 50,
+    "target_streak": 7,
+    "current_streak": 5,
+    "days_remaining": 2
+  }
+}
+```
+
+---
+
+## POST /gamification/wager
+
+Place a streak wager. Bet XP on hitting a streak target.
+
+```bash
+curl -X POST https://api.safua.ai/v1/gamification/wager \
+  -H "Authorization: Bearer TOKEN" \
+  -d '{"bet_amount": 50, "target_streak": 7}'
+```
+
+---
+
+## POST /gamification/use-focus-freeze
+
+Use a Focus Freeze to protect your streak for one day.
+
+---
+
+## GET /leagues/my-league
+
+Returns the user's current league, weekly leaderboard, and promotion/demotion zone.

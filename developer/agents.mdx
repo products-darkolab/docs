@@ -1,0 +1,91 @@
+---
+title: "Building Agents"
+description: "How to build new AI agents in Safua using BaseAgent."
+---
+
+## Pattern
+
+All agents extend `BaseAgent`. Never use the Anthropic Python SDK — always use raw httpx.
+
+```python
+# api/app/agents/my_agent.py
+
+from app.agents.base_agent import BaseAgent
+
+class MyAgent(BaseAgent):
+    async def run(self, user_context: dict, user_input: str) -> str:
+        system_prompt = f"""
+        You are a helpful assistant for Safua learners.
+        
+        User context:
+        - Track: {user_context.get('track')}
+        - Current skill mastery: {user_context.get('skill_summary')}
+        
+        Rules:
+        - Always be encouraging
+        - Keep responses under 3 paragraphs
+        """
+        
+        messages = [{"role": "user", "content": user_input}]
+        return await self.call_claude(system_prompt, messages)
+```
+
+## Injecting User Memory
+
+Use the `MetaOrchestrator` to inject user memories automatically:
+
+```python
+from app.agents.orchestrator import MetaOrchestrator
+
+orchestrator = MetaOrchestrator()
+response = await orchestrator.route(
+    user_id=current_user.id,
+    agent_type="my_agent",
+    input_data={"message": user_message},
+    db=db,
+)
+```
+
+The orchestrator fetches the top 10 user memories and injects them into the system prompt before calling the agent.
+
+## Storing Memories
+
+When an agent learns something useful about a user, store it:
+
+```python
+from app.models import UserAgentMemory
+
+memory = UserAgentMemory(
+    user_id=user_id,
+    memory_type="struggle",    # strength | struggle | preference | context
+    content="Struggles with understanding gradient descent intuitively",
+    skill_slug="gradient-descent",
+    confidence=0.8,
+)
+db.add(memory)
+await db.commit()
+```
+
+## Adding a New Agent to the Orchestrator
+
+In `api/app/agents/orchestrator.py`, add your agent to the routing logic:
+
+```python
+AGENT_MAP = {
+    "tutor": SocraticTutorAgent,
+    "code_review": CodeReviewAgent,
+    "motivation": MotivationAgent,
+    "my_agent": MyAgent,    # ← add here
+}
+```
+
+## Cost Awareness
+
+All agent calls use `claude-sonnet-4-20250514`. Keep `max_tokens` proportional to the task:
+
+| Agent type | Recommended max_tokens |
+|---|---|
+| Tutor response | 500 |
+| Code review | 1500 |
+| Motivation nudge | 200 |
+| Content generation | 4000 |

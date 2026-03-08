@@ -1,0 +1,61 @@
+---
+title: "Living Learning Graph"
+description: "Your personal skill graph — how mastery is tracked, how it decays, and how it drives recommendations."
+---
+
+## What Is the Living Learning Graph?
+
+The Living Learning Graph is a directed graph of 210+ skills, where edges represent prerequisites. Every learner has their own **mastery score** for each skill — a number between 0 and 1 that reflects how well they know it.
+
+Unlike a simple "lesson completed" checkbox, mastery scores:
+- **Increase** when you complete labs and answer questions correctly
+- **Decay** over time if you don't revisit them
+- **Drive recommendations** for what to learn next
+
+## Mastery Scores
+
+| Score Range | Meaning |
+|---|---|
+| 0.0 – 0.3 | Not yet learned or largely forgotten |
+| 0.3 – 0.6 | Developing — knows the basics, needs reinforcement |
+| 0.6 – 0.85 | Solid understanding |
+| 0.85 – 1.0 | Expert — ready to teach this skill to others |
+
+### How mastery updates
+
+When you complete a lab or review, your mastery score updates using a weighted blend that rewards consistency over cramming:
+
+```
+new_mastery = (old_mastery × 0.7) + (performance_score × 0.3)
+```
+
+A single perfect lab score won't shoot you to 1.0 — you build mastery through repeated, spaced exposure.
+
+### Daily decay
+
+Skills decay at 2% per day if not reviewed. This mirrors the well-documented **forgetting curve** — knowledge fades without reinforcement. The decay system:
+- Keeps your graph honest (no false expertise from a lesson you did 6 months ago)
+- Triggers spaced repetition reviews before important skills fall below a threshold
+- Makes the ZPD recommendations more accurate over time
+
+## Zone of Proximal Development (ZPD)
+
+The system recommends the **top 5 skills** where you're in your ZPD — the zone where you know enough to learn, but haven't mastered it yet.
+
+A skill is in your ZPD if:
+1. Your mastery is between **0.4 and 0.75** (developing, not expert)
+2. All its **prerequisites are met** (mastery ≥ 0.6)
+
+This means the graph never recommends something you're not ready for, and never wastes your time on something you already know.
+
+## The Skill Graph Visualisation
+
+On your `/learning-graph` page, you'll see an interactive D3.js force-directed graph:
+
+- **Node size** = your mastery score (bigger = higher mastery)
+- **Node colour** = track (blue = AI Engineer, green = Data Scientist, etc.)
+- **Edge** = prerequisite relationship
+- **Hover** = skill name, mastery score, last reviewed date
+- **Click** = opens the relevant module
+
+You can zoom, pan, and drag nodes. Use it to see your progress visually and identify skills that have decayed (small nodes) or gaps in your prerequisite chain.

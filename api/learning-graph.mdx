@@ -1,0 +1,48 @@
+---
+title: "Learning Graph"
+description: "Skill mastery, ZPD recommendations, and the skill graph."
+---
+
+## GET /learning-graph/my-graph
+
+Returns the user's full skill graph with mastery scores.
+
+```bash
+curl https://api.safua.ai/v1/learning-graph/my-graph \
+  -H "Authorization: Bearer TOKEN"
+```
+
+**Response:**
+```json
+{
+  "skills": [
+    {
+      "slug": "python-functions",
+      "name": "Python Functions",
+      "mastery_score": 0.82,
+      "last_reviewed_at": "2026-03-05T14:22:00Z",
+      "prerequisites": []
+    }
+  ],
+  "zpd_recommendations": [
+    {
+      "slug": "python-oop",
+      "name": "Python OOP",
+      "mastery_score": 0.45,
+      "why": "Prerequisites met. Ready to deepen understanding."
+    }
+  ]
+}
+```
+
+---
+
+## POST /learning-graph/update-mastery
+
+Update mastery for a skill after a lab or review. Called internally — not typically needed by API consumers.
+
+---
+
+## GET /learning-graph/skills
+
+All 210 skills in the platform with metadata (name, slug, track, difficulty, prerequisites).

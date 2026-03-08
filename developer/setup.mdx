@@ -1,0 +1,127 @@
+---
+title: "Local Setup"
+description: "Get the full Safua stack running locally in under 10 minutes."
+---
+
+## Prerequisites
+
+- Python 3.11+
+- Node.js 20+
+- PostgreSQL 15+ (or use Railway's free tier for a remote dev DB)
+- Git
+
+## 1. Clone the repo
+
+```bash
+git clone https://github.com/products-darkolab/safua-platform.git
+cd safua-platform
+```
+
+## 2. Backend setup
+
+```bash
+cd api
+python -m venv venv
+source venv/bin/activate    # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+Copy and fill in the environment file:
+
+```bash
+cp .env.example .env
+```
+
+Required variables:
+
+```bash
+DATABASE_URL=postgresql+asyncpg://user:pass@localhost:5432/safua
+SECRET_KEY=your-super-secret-key-min-32-chars
+ANTHROPIC_API_KEY=sk-ant-...
+STRIPE_SECRET_KEY=sk_test_...   # use test keys locally
+STRIPE_WEBHOOK_SECRET=whsec_...
+RESEND_API_KEY=re_...
+FRONTEND_URL=http://localhost:3000
+```
+
+<Warning>
+`DATABASE_URL` must use `postgresql+asyncpg://` not `postgresql://`. SQLAlchemy's async engine requires the asyncpg driver scheme.
+</Warning>
+
+Run migrations and seed:
+
+```bash
+python run_migrations.py
+python scripts/seed_curriculum.py
+```
+
+Start the API:
+
+```bash
+uvicorn app.main:app --reload --port 8000
+```
+
+API is now running at `http://localhost:8000`. Interactive docs at `http://localhost:8000/docs`.
+
+## 3. Frontend setup
+
+```bash
+cd ../platform
+npm install
+cp .env.local.example .env.local
+```
+
+```bash
+# .env.local
+NEXT_PUBLIC_API_URL=http://localhost:8000/v1
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
+```
+
+```bash
+npm run dev
+```
+
+Frontend is now running at `http://localhost:3000`.
+
+## 4. Create an admin user
+
+```bash
+cd ../api
+python scripts/create_admin.py --email admin@example.com --password adminpass
+```
+
+Log in at `http://localhost:3000/login` with those credentials to access the admin dashboard at `/admin`.
+
+## 5. Seed industry pulse data (optional)
+
+```bash
+python -c "
+import asyncio
+from app.services.industry_pulse import run_pipeline
+from app.database import AsyncSessionLocal
+
+async def main():
+    async with AsyncSessionLocal() as session:
+        await run_pipeline(session)
+
+asyncio.run(main())
+"
+```
+
+## Common Issues
+
+### asyncpg multi-statement error
+**Problem:** `cannot use multiple statements in query`
+**Fix:** Never use `;` to chain statements in a `text()` call. Split into separate `conn.execute()` calls.
+
+### bcrypt import error
+**Problem:** `AttributeError: module 'bcrypt' has no attribute '__about__'`
+**Fix:** `pip install bcrypt==4.0.1` — later versions broke the API. It's pinned in requirements.txt.
+
+### Frontend 401 errors
+**Problem:** API calls return 401 even when logged in
+**Fix:** Check `NEXT_PUBLIC_API_URL` doesn't have a trailing slash. The axios interceptor appends `/v1` — double `/v1/v1` will break everything.
+
+### Migrations fail
+**Problem:** Migration fails with `already exists` error
+**Fix:** All migrations use `IF NOT EXISTS` and should be idempotent. If a migration script is failing, check if it was written with split statements (see asyncpg issue above).

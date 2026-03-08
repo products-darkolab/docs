@@ -1,0 +1,21 @@
+---
+title: "Courses"
+description: "Course catalog and enrollment."
+---
+
+## GET /courses
+
+Returns all courses available to the authenticated user based on their track and subscription.
+
+## GET /courses/public/stats
+
+Public endpoint — no auth required. Returns platform-wide stats for the landing page.
+
+```json
+{
+  "total_learners": 1247,
+  "total_lessons": 271,
+  "total_labs": 64,
+  "skills_tracked": 210
+}
+```

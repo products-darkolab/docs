@@ -1,0 +1,69 @@
+---
+title: "AI Tutor"
+description: "Your Socratic AI mentor — how it works and how to use it effectively."
+---
+
+## What Makes the Safua Tutor Different
+
+Most AI tutors just answer your question. The Safua tutor asks you one back.
+
+It's built on the **Socratic method** — a teaching approach where the teacher guides you to discover the answer yourself through a sequence of questions. Research consistently shows that active recall (arriving at the answer yourself) produces stronger, more durable learning than passive explanation.
+
+The tutor **never reveals the answer directly**. If you're stuck after three exchanges, it gives you a hint — but even the hint is framed as a question.
+
+## Socratic Mode
+
+Every lesson has a chat bubble in the bottom right. By default, the tutor is in **Standard mode** — it explains concepts clearly and directly. Toggle **Socratic mode** to switch to pure Socratic dialogue.
+
+| | Standard Mode | Socratic Mode |
+|---|---|---|
+| Best for | First reading of new concepts | Checking your understanding |
+| Style | Direct explanation | Guiding questions |
+| When stuck | Explains the answer | Gives a hint question |
+| XP bonus | — | +10 XP per session |
+
+## What the Tutor Knows About You
+
+The tutor isn't starting from scratch in every session. It has memory of your past interactions:
+
+- Skills you've struggled with ("async/await mental model")
+- Skills you're strong in ("pandas groupby operations")
+- Your preferred explanation style
+- Questions you've asked before
+
+This means it calibrates its questions and explanations to your actual level — not a generic learner.
+
+## Code Review in Labs
+
+When you submit a lab, the **Code Review Agent** gives you structured feedback:
+
+- **Overall score** out of 100
+- **Correctness** — does it produce the right output?
+- **Style** — is it readable, well-named, Pythonic?
+- **Efficiency** — is there a better algorithm or approach?
+- **Inline comments** — appear directly in the Monaco editor
+
+In the Monaco editor, inline comments appear as coloured glyphs in the margin:
+- 🔴 **Red** — hint: something needs fixing here
+- 🔵 **Blue** — Socratic question: think about what this is doing
+- 🟢 **Green** — praise: this is well done
+
+Click any glyph to read the full comment.
+
+## Motivation Nudges
+
+The **Motivation Agent** sends in-app notifications when:
+
+- You haven't been active for 48 hours
+- Your streak is at risk (expiring in < 4 hours)
+- You're within 10 XP of moving up in your league
+- A skill you've learned has decayed below 50% mastery
+
+These are delivered as push notifications in the TopBar bell icon. They're designed to be useful, not spammy — at most one per day.
+
+## Tips for Getting the Most Out of the Tutor
+
+- **Answer the question before asking another one.** The tutor builds on your responses.
+- **Say "I don't know" explicitly.** It will give you a hint rather than staying stuck.
+- **Use it to rubber-duck.** Start with "Let me try to explain this back to you..." — the tutor will correct you if you're wrong.
+- **Ask "why" not just "how."** The tutor is better at helping you understand than giving you code to copy.

@@ -1,0 +1,62 @@
+---
+title: "Tech Stack"
+description: "Every technology powering Safua and why we chose it."
+---
+
+## Frontend
+
+| Technology | Version | Why |
+|---|---|---|
+| Next.js | 16 | App router, server components, file-based routing |
+| React | 19 | Latest concurrent features |
+| TypeScript | 5+ | Type safety across the entire frontend |
+| Tailwind CSS | v4 | Utility-first, fast iteration |
+| shadcn/ui | Latest | Accessible components, matches our design system |
+| Framer Motion | Latest | Smooth animations without performance cost |
+| D3.js | Latest | Living Learning Graph force-directed visualisation |
+| Recharts | Latest | Skill radar chart, analytics widgets |
+| Monaco Editor | Latest | VS Code editor in the browser for labs |
+| axios | Latest | HTTP client with interceptors for auth token injection |
+
+## Backend
+
+| Technology | Version | Why |
+|---|---|---|
+| Python | 3.11 | Latest stable, asyncio improvements |
+| FastAPI | Latest | Async, automatic OpenAPI docs, Pydantic validation |
+| SQLAlchemy | 2.x (async) | Async ORM with full PostgreSQL support |
+| asyncpg | Latest | High-performance async PostgreSQL driver |
+| httpx | Latest | Async HTTP client for Claude API calls |
+| bcrypt | 4.0.1 | **Pinned** — breaking changes in later versions |
+| APScheduler | 3.10.4 | Cron jobs for pipeline and matching runs |
+| python-jose | Latest | JWT token creation and validation |
+
+## Infrastructure
+
+| Service | What it runs | Why |
+|---|---|---|
+| Vercel | Next.js frontend | Zero-config deploys, edge network, preview URLs |
+| Railway | FastAPI + PostgreSQL | Simple deployment, auto-deploy from GitHub, managed DB |
+| GitHub Actions | CI/CD | Custom deploy workflow (Vercel native webhook doesn't work with monorepo) |
+
+## AI & Integrations
+
+| Service | Purpose |
+|---|---|
+| Anthropic Claude Sonnet 4 | All AI features — tutor, code review, motivation, course generation |
+| Stripe (live mode) | Subscriptions — Pro ($29/mo), Annual ($199/yr) |
+| Resend | Transactional email — verification, password reset, welcome |
+
+## Design System
+
+| Token | Value |
+|---|---|
+| Primary Navy | `#1A3A5C` |
+| Primary Blue | `#2E86C1` |
+| Accent Gold | `#D4A853` |
+| Accent Amber | `#F59E0B` |
+| Light | `#EAF4FB` |
+| Cream | `#FFFBF0` |
+| Heading Font | DM Serif Display |
+| Body Font | DM Sans |
+| Code Font | JetBrains Mono |

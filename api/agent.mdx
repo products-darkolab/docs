@@ -1,0 +1,67 @@
+---
+title: "AI Agent"
+description: "The orchestrator agent endpoint — lesson tutor, code review, and motivation."
+---
+
+## POST /lesson-tutor/chat
+
+Send a message to the Socratic tutor for a specific lesson.
+
+```bash
+curl -X POST https://api.safua.ai/v1/lesson-tutor/chat \
+  -H "Authorization: Bearer TOKEN" \
+  -d '{
+    "lesson_id": "uuid",
+    "message": "I don'\''t understand why we need async here",
+    "socratic_mode": true,
+    "history": []
+  }'
+```
+
+**Response:**
+```json
+{
+  "reply": "Interesting — what do you think would happen if we called this function without async?",
+  "mode": "socratic",
+  "hint_level": 0
+}
+```
+
+---
+
+## POST /code-review/submit
+
+Submit lab code for AI review. Also auto-assigns a cohort peer reviewer if the user is in an active cohort.
+
+```bash
+curl -X POST https://api.safua.ai/v1/code-review/submit \
+  -H "Authorization: Bearer TOKEN" \
+  -d '{
+    "lab_id": "uuid",
+    "code": "def solution():\n    ..."
+  }'
+```
+
+**Response:**
+```json
+{
+  "submission_id": "uuid",
+  "review": {
+    "overall_score": 82,
+    "correctness": {"score": 90, "feedback": "Correct output for all test cases."},
+    "style": {"score": 75, "feedback": "Consider using a list comprehension on line 8."},
+    "efficiency": {"score": 80, "feedback": "O(n²) solution works but O(n log n) is possible."},
+    "inline_comments": [
+      {"line": 8, "type": "hint", "comment": "Could this be a list comprehension?"},
+      {"line": 14, "type": "question", "comment": "What happens if the input list is empty?"},
+      {"line": 3, "type": "praise", "comment": "Clean function signature with type hints."}
+    ],
+    "socratic_questions": [
+      "What's the time complexity of your current approach?",
+      "How would you handle edge cases like an empty input?"
+    ]
+  },
+  "peer_review_assigned": true,
+  "peer_review_due": "2026-03-09T14:00:00Z"
+}
+```

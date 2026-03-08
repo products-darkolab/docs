@@ -1,0 +1,68 @@
+---
+title: "Tracks"
+description: "Career track selection and progress."
+---
+
+## GET /tracks/available
+
+List all career tracks with the learner's enrollment status.
+
+```bash
+curl https://api.safua.ai/v1/tracks/available \
+  -H "Authorization: Bearer TOKEN"
+```
+
+**Response:**
+```json
+[
+  {
+    "id": "uuid",
+    "slug": "ai-engineer",
+    "title": "AI Engineer",
+    "description": "...",
+    "track_key": "ai_engineer",
+    "estimated_weeks": 22,
+    "enrollment_status": "locked",
+    "foundation_required": true
+  }
+]
+```
+
+---
+
+## POST /tracks/select
+
+Select a career track. Auto-enrolls the user in Foundation and locks the career track until Foundation is complete.
+
+```bash
+curl -X POST https://api.safua.ai/v1/tracks/select \
+  -H "Authorization: Bearer TOKEN" \
+  -d '{"track": "ai_engineer"}'
+```
+
+---
+
+## GET /tracks/my-track
+
+Returns the user's selected track and Foundation progress.
+
+```bash
+curl https://api.safua.ai/v1/tracks/my-track \
+  -H "Authorization: Bearer TOKEN"
+```
+
+**Response:**
+```json
+{
+  "selected_track": "ai_engineer",
+  "foundation_complete": false,
+  "foundation_progress": 0.33,
+  "career_track_status": "locked"
+}
+```
+
+---
+
+## POST /tracks/foundation-complete
+
+Called internally when Foundation is completed. Unlocks the career track. Can also be called manually by admins for testing.

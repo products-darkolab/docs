@@ -1,0 +1,71 @@
+---
+title: "Industry Pulse"
+description: "Live skill freshness scores from job boards, GitHub, arXiv, and HackerNews."
+---
+
+## GET /industry-pulse/scores
+
+All skill freshness scores, sortable and filterable. **Admin only.**
+
+```bash
+curl "https://api.safua.ai/v1/industry-pulse/scores?track=ai_engineer&sort_by=freshness_score&order=asc" \
+  -H "Authorization: Bearer ADMIN_TOKEN"
+```
+
+**Response:**
+```json
+[
+  {
+    "skill_slug": "llm-api-integration",
+    "freshness_score": 89.2,
+    "job_signals": 142,
+    "github_signals": 67,
+    "arxiv_signals": 23,
+    "hn_signals": 14,
+    "trend": "rising",
+    "alert_triggered": false,
+    "last_computed_at": "2026-03-07T03:00:00Z"
+  }
+]
+```
+
+---
+
+## GET /industry-pulse/scores/{skill_slug}
+
+Freshness score + last 20 signals for a specific skill. **Admin only.**
+
+---
+
+## GET /industry-pulse/stale
+
+Skills with freshness score below 40. **Admin only.** Use to identify curriculum that may need updating.
+
+---
+
+## GET /industry-pulse/trending
+
+Skills with freshness score above 70. **Admin only.** Use to identify what to prioritise in new content.
+
+---
+
+## GET /industry-pulse/summary
+
+Pipeline status and aggregate stats. **Admin only.**
+
+```json
+{
+  "total_skills_tracked": 63,
+  "avg_freshness_score": 71.4,
+  "stale_count": 3,
+  "hot_count": 28,
+  "pipeline_status": "healthy",
+  "last_run_at": "2026-03-07T03:00:00Z"
+}
+```
+
+---
+
+## POST /industry-pulse/run
+
+Manually trigger the pipeline. Runs in the background. **Admin only.**

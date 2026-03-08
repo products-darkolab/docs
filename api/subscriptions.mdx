@@ -1,0 +1,62 @@
+---
+title: "Subscriptions"
+description: "Stripe subscription management — plans, portal, and webhooks."
+---
+
+## Plans
+
+| Plan | Price | Features |
+|---|---|---|
+| Free | $0 | Foundation track, limited labs |
+| Pro | $29/month | All 4 career tracks, unlimited labs, AI tutor, cohort access |
+| Annual | $199/year | Everything in Pro, ~43% saving vs monthly |
+
+---
+
+## POST /subscriptions/create-checkout
+
+Creates a Stripe Checkout session. Redirect the user to the returned URL.
+
+```bash
+curl -X POST https://api.safua.ai/v1/subscriptions/create-checkout \
+  -H "Authorization: Bearer TOKEN" \
+  -d '{"plan": "pro_monthly"}'
+```
+
+**Response:**
+```json
+{
+  "checkout_url": "https://checkout.stripe.com/pay/cs_live_..."
+}
+```
+
+---
+
+## POST /subscriptions/customer-portal
+
+Creates a Stripe Customer Portal session for managing billing, updating payment method, or cancelling.
+
+---
+
+## GET /subscriptions/status
+
+Returns the user's current subscription status.
+
+```json
+{
+  "plan": "pro",
+  "status": "active",
+  "current_period_end": "2026-04-07T00:00:00Z",
+  "cancel_at_period_end": false
+}
+```
+
+---
+
+## POST /subscriptions/webhook
+
+Stripe webhook endpoint. Handles `checkout.session.completed`, `customer.subscription.updated`, and `customer.subscription.deleted` events.
+
+<Warning>
+This endpoint requires the `Stripe-Signature` header. Never call it directly — it's only for Stripe.
+</Warning>

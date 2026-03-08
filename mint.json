@@ -1,0 +1,133 @@
+{
+  "name": "Safua",
+  "logo": {
+    "dark": "/logo/safua-dark.svg",
+    "light": "/logo/safua-light.svg"
+  },
+  "favicon": "/favicon.png",
+  "colors": {
+    "primary": "#D4A853",
+    "light": "#F59E0B",
+    "dark": "#1A3A5C",
+    "anchors": {
+      "from": "#D4A853",
+      "to": "#2E86C1"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "safua.ai",
+      "url": "https://safua.ai"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Start Learning",
+    "url": "https://safua.ai/register"
+  },
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api"
+    },
+    {
+      "name": "Developer Guide",
+      "url": "developer"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/products-darkolab/safua-platform"
+    },
+    {
+      "name": "Jira",
+      "icon": "trello",
+      "url": "https://darkolab.atlassian.net/jira/software/projects/DLAB"
+    },
+    {
+      "name": "safua.ai",
+      "icon": "globe",
+      "url": "https://safua.ai"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "introduction",
+        "quickstart",
+        "changelog"
+      ]
+    },
+    {
+      "group": "Platform",
+      "pages": [
+        "architecture/overview",
+        "architecture/tech-stack",
+        "architecture/database",
+        "architecture/deployment",
+        "architecture/agent-system"
+      ]
+    },
+    {
+      "group": "Career Tracks",
+      "pages": [
+        "tracks/overview",
+        "tracks/foundation",
+        "tracks/ai-engineer",
+        "tracks/data-scientist",
+        "tracks/ml-engineer",
+        "tracks/data-engineer"
+      ]
+    },
+    {
+      "group": "Learner Guide",
+      "pages": [
+        "learner/getting-started",
+        "learner/learning-graph",
+        "learner/cohorts",
+        "learner/gamification",
+        "learner/ai-tutor"
+      ]
+    },
+    {
+      "group": "API Reference",
+      "pages": [
+        "api/overview",
+        "api/authentication",
+        "api/tracks",
+        "api/courses",
+        "api/learning-graph",
+        "api/agent",
+        "api/code-review",
+        "api/cohorts",
+        "api/industry-pulse",
+        "api/gamification",
+        "api/subscriptions"
+      ]
+    },
+    {
+      "group": "Developer",
+      "pages": [
+        "developer/setup",
+        "developer/migrations",
+        "developer/agents",
+        "developer/contributing",
+        "developer/roadmap"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "twitter": "https://twitter.com/safuaai",
+    "github": "https://github.com/products-darkolab/safua-platform",
+    "linkedin": "https://linkedin.com/company/darkolab"
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true
+  },
+  "search": {
+    "prompt": "Search Safua docs..."
+  }
+}
