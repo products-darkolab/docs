@@ -90,6 +90,12 @@
       ]
     },
     {
+      "group": "Features",
+      "pages": [
+        "features/virtual-ai-companies"
+      ]
+    },
+    {
       "group": "API Reference",
       "pages": [
         "api/overview",
